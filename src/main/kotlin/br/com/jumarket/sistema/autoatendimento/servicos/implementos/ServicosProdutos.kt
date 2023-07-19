@@ -23,5 +23,7 @@ class ServicosProdutos(
     override fun consultarPorCategoria(categoriasId: Long): List<Produtos> =
         this.repositorioProdutos.consultarPorCategoria(categoriasId)
 
+    override fun consultarTodosProdutos(): List<Produtos> = this.repositorioProdutos.consultarTodosProdutos()
+
     override fun apagarProduto(id: Long) = this.repositorioProdutos.deleteById(id)
 }

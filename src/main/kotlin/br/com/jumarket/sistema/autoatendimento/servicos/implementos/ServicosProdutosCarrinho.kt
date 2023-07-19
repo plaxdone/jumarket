@@ -20,4 +20,6 @@ class ServicosProdutosCarrinho(
         this.repositorioProdutosCarrinho.consultarPorCarrinho(carrinhoId)
 
     override fun apagarProdutoCarrinho(id: Long) = this.repositorioProdutosCarrinho.deleteById(id)
+    override fun finalizarCarrinho(id: Long) {
+    }
 }

@@ -8,4 +8,6 @@ interface IServicosProdutosCarrinho {
     fun consultarPorCarrinho(id: Long): List<ProdutosCarrinho>
 
     fun apagarProdutoCarrinho(id: Long)
+
+    fun finalizarCarrinho(id: Long)
 }

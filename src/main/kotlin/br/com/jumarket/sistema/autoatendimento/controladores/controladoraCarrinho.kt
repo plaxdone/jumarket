@@ -28,4 +28,14 @@ class controladoraCarrinho(
 
     @DeleteMapping("/{id}")
     fun apagarCarrinho(@PathVariable id: Long) = this.servicosCarrinho.apagarCarrinho(id)
+
+    @PatchMapping
+    fun atualizarCarrinho(
+        @RequestParam(value = "carrinhoId") id: Long, @RequestBody dtoAtualizarCarrinho: DtoAtualizarCarrinho
+    ): ResponseEntity<DtoVerCarrinho> {
+        val carrinho: Carrinho = this.servicosCarrinho.consultarCarrinho(id)
+        val carrinhoParaAtualizar: Carrinho = dtoAtualizarCarrinho.paraEntidade(carrinho)
+        val carrinhoAtualizado: Carrinho = this.servicosCarrinho.salvarCarrinho(carrinhoParaAtualizar)
+        return ResponseEntity.status(HttpStatus.OK).body(DtoVerCarrinho(carrinhoAtualizado))
+    }
 }

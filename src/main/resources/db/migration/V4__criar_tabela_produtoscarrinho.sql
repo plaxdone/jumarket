@@ -1,7 +1,6 @@
 CREATE TABLE produtos_carrinho (
   id BIGINT AUTO_INCREMENT NOT NULL,
-   produto_id BIGINT NOT NULL,
-   produto_nome BIGINT NOT NULL,
+   produto_nome VARCHAR(255) NULL,
    produto_preco DECIMAL NULL,
    quantidade DECIMAL NULL,
    total DECIMAL NULL,

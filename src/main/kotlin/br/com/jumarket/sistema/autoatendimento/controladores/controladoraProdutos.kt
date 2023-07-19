@@ -1,9 +1,7 @@
 package br.com.jumarket.sistema.autoatendimento.controladores
 
-import br.com.jumarket.sistema.autoatendimento.dto.DtoAtualizarProduto
-import br.com.jumarket.sistema.autoatendimento.dto.DtoSalvarProdutos
-import br.com.jumarket.sistema.autoatendimento.dto.DtoVerListaProdutos
-import br.com.jumarket.sistema.autoatendimento.dto.DtoVerProduto
+import br.com.jumarket.sistema.autoatendimento.dto.*
+import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
 import br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosProdutos
 import org.springframework.http.HttpStatus
@@ -28,7 +26,7 @@ class controladoraProdutos(
     @PostMapping
     fun salvarProduto(@RequestBody dtoSalvarProdutos: DtoSalvarProdutos): ResponseEntity<String> {
         val produtoSalvo = this.servicosProdutos.salvarProduto(dtoSalvarProdutos.paraEntidade())
-        return ResponseEntity.status(HttpStatus.CREATED).body("Produto ${produtoSalvo.nomeProduto} salvo!")
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto '${produtoSalvo.nomeProduto}' salvo!")
     }
 
     @GetMapping("/{id}")
@@ -41,6 +39,15 @@ class controladoraProdutos(
     fun consultarPorCategoria(@RequestParam(value = "categoriasId") id: Long): ResponseEntity<List<DtoVerListaProdutos>> {
         val dtoVerListaProdutos: List<DtoVerListaProdutos> = this.servicosProdutos.consultarPorCategoria(id).stream()
             .map { produtos: Produtos -> DtoVerListaProdutos(produtos) }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(dtoVerListaProdutos)
+    }
+
+    @GetMapping("/todos")
+    fun consultarTodosProdutos(): ResponseEntity<List<DtoVerListaProdutos>> {
+        val dtoVerListaProdutos: List<DtoVerListaProdutos> = this.servicosProdutos.consultarTodosProdutos().stream()
+            .map { produtos: Produtos -> DtoVerListaProdutos(produtos) }.collect(
+                Collectors.toList()
+            )
         return ResponseEntity.status(HttpStatus.OK).body(dtoVerListaProdutos)
     }
 

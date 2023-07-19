@@ -17,11 +17,13 @@ import java.util.stream.Collectors
 class controladoraProdutosCarrinho(
     private val servicosProdutosCarrinho: ServicosProdutosCarrinho
 ) {
+    @PostMapping
     fun salvarProdutoCarrinho(@RequestBody dtoSalvarProdutosCarrinho: DtoSalvarProdutosCarrinho): ResponseEntity<String> {
         val produtoCarrinhoSalvo = this.servicosProdutosCarrinho.salvarProdutosCarrinho(dtoSalvarProdutosCarrinho.paraEntidade())
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto ${produtoCarrinhoSalvo.produtoNome} inserido no carrinho!")
     }
 
+    @GetMapping
     fun consultarPorCarrinho(@RequestParam(value = "carrinhoId") id: Long): ResponseEntity<List<DtoVerListaProdutosCarrinho>> {
         val dtoVerListaProdutosCarrinho: List<DtoVerListaProdutosCarrinho> = this.servicosProdutosCarrinho.consultarPorCarrinho(id).stream()
             .map { produtosCarrinho: ProdutosCarrinho -> DtoVerListaProdutosCarrinho(produtosCarrinho) }.collect(Collectors.toList())

@@ -29,7 +29,7 @@ class controladoraCategoria(
     @PostMapping
     fun salvarCategoria(@RequestBody dtoSalvarCategoria: DtoSalvarCategoria): ResponseEntity<String> {
         val categoriaSalva = this.servicosCategorias.salvarCategoria(dtoSalvarCategoria.paraEntidade())
-        return ResponseEntity.status(HttpStatus.CREATED).body("Categoria '${categoriaSalva.nomeCategoria} salva!'")
+        return ResponseEntity.status(HttpStatus.CREATED).body("Categoria '${categoriaSalva.nomeCategoria}' salva!")
     }
 
     @GetMapping("/{id}")
@@ -39,9 +39,11 @@ class controladoraCategoria(
     }
 
     @GetMapping("/todas")
-    fun consultarTodasCategorias(): ResponseEntity<List<DtoVerCategoria>>{
-        val dtoVerCategoria: List<DtoVerCategoria> = this.servicosCategorias.consultarTodasCategorias().stream().map { categorias: Categorias -> DtoVerCategoria(categorias) }.collect(
-            Collectors.toList())
+    fun consultarTodasCategorias(): ResponseEntity<List<DtoVerCategoria>> {
+        val dtoVerCategoria: List<DtoVerCategoria> = this.servicosCategorias.consultarTodasCategorias().stream()
+            .map { categorias: Categorias -> DtoVerCategoria(categorias) }.collect(
+                Collectors.toList()
+            )
         return ResponseEntity.status(HttpStatus.OK).body(dtoVerCategoria)
     }
 
@@ -50,10 +52,9 @@ class controladoraCategoria(
 
     @PatchMapping
     fun atualizarCategoria(
-        @RequestParam(value = "categoriasId") id: Long,
-        @RequestBody dtoAtualizarCategoria: DtoAtualizarCategoria
+        @RequestParam(value = "categoriasId") id: Long, @RequestBody dtoAtualizarCategoria: DtoAtualizarCategoria
     ): ResponseEntity<DtoVerCategoria> {
-        val categorias : Categorias = this.servicosCategorias.consultarCategoria(id)
+        val categorias: Categorias = this.servicosCategorias.consultarCategoria(id)
         val categoriaParaAtualizar: Categorias = dtoAtualizarCategoria.paraEntidade(categorias)
         val categoriaAtualizada: Categorias = this.servicosCategorias.salvarCategoria(categoriaParaAtualizar)
         return ResponseEntity.status(HttpStatus.OK).body(DtoVerCategoria(categoriaAtualizada))
