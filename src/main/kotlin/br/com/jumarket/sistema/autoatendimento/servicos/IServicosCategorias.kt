@@ -7,5 +7,7 @@ interface IServicosCategorias {
 
     fun consultarCategoria(id: Long): Categorias
 
+    fun consultarTodasCategorias(): List<Categorias>
+
     fun apagarCategoria(id: Long)
 }

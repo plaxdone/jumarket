@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.stream.Collectors
 
 @RestController
 @RequestMapping("/api/categorias")
@@ -35,6 +36,13 @@ class controladoraCategoria(
     fun consultarCategoria(@PathVariable id: Long): ResponseEntity<DtoVerCategoria> {
         val categorias: Categorias = this.servicosCategorias.consultarCategoria(id)
         return ResponseEntity.status(HttpStatus.OK).body(DtoVerCategoria(categorias))
+    }
+
+    @GetMapping("/todas")
+    fun consultarTodasCategorias(): ResponseEntity<List<DtoVerCategoria>>{
+        val dtoVerCategoria: List<DtoVerCategoria> = this.servicosCategorias.consultarTodasCategorias().stream().map { categorias: Categorias -> DtoVerCategoria(categorias) }.collect(
+            Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(dtoVerCategoria)
     }
 
     @DeleteMapping("/{id}")
