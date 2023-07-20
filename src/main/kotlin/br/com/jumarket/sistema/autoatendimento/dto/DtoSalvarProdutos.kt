@@ -2,15 +2,17 @@ package br.com.jumarket.sistema.autoatendimento.dto
 
 import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
+import jakarta.validation.constraints.NotEmpty
+import org.jetbrains.annotations.NotNull
 import java.math.BigDecimal
 
 data class DtoSalvarProdutos(
-    val nomeProduto: String,
+    @field:NotEmpty(message = "Digite um nome") val nomeProduto: String,
     val descricaoProduto: String,
-    val unMedida: String,
-    val estoque: BigDecimal,
-    val preco: BigDecimal,
-    val categorias_id: Long
+    @field:NotEmpty(message = "Digite a unidade de medida") val unMedida: String,
+    @field:NotNull() val estoque: BigDecimal,
+    @field:NotNull() val preco: BigDecimal,
+    @field:NotNull() val categorias_id: Long
 ) {
     fun paraEntidade() :Produtos = Produtos(
         nomeProduto = this.nomeProduto,

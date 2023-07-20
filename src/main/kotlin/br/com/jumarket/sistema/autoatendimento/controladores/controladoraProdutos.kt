@@ -4,6 +4,7 @@ import br.com.jumarket.sistema.autoatendimento.dto.*
 import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
 import br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosProdutos
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -24,7 +25,7 @@ class controladoraProdutos(
 ) {
 
     @PostMapping
-    fun salvarProduto(@RequestBody dtoSalvarProdutos: DtoSalvarProdutos): ResponseEntity<String> {
+    fun salvarProduto(@RequestBody @Valid dtoSalvarProdutos: DtoSalvarProdutos): ResponseEntity<String> {
         val produtoSalvo = this.servicosProdutos.salvarProduto(dtoSalvarProdutos.paraEntidade())
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto '${produtoSalvo.nomeProduto}' salvo!")
     }
@@ -56,7 +57,7 @@ class controladoraProdutos(
 
     @PatchMapping
     fun atualizarProduto(
-        @RequestParam(value = "produtosId") id: Long, @RequestBody dtoAtualizarProduto: DtoAtualizarProduto
+        @RequestParam(value = "produtosId") id: Long, @RequestBody @Valid dtoAtualizarProduto: DtoAtualizarProduto
     ): ResponseEntity<DtoVerProduto> {
         val produtos: Produtos = this.servicosProdutos.consultarProduto(id)
         val produtoParaAtualizar: Produtos = dtoAtualizarProduto.paraEntidade(produtos)

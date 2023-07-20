@@ -1,6 +1,7 @@
 package br.com.jumarket.sistema.autoatendimento.servicos.implementos
 
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
+import br.com.jumarket.sistema.autoatendimento.excecao.ExcecaoNegocio
 import br.com.jumarket.sistema.autoatendimento.repositorio.RepositorioProdutos
 import br.com.jumarket.sistema.autoatendimento.servicos.IServicosProdutos
 import org.springframework.stereotype.Service
@@ -17,7 +18,7 @@ class ServicosProdutos(
     }
 
     override fun consultarProduto(id: Long): Produtos = this.repositorioProdutos.findById(id).orElseThrow {
-        throw RuntimeException("Id $id não encontrada!")
+        throw ExcecaoNegocio("Id $id não encontrada!")
     }
 
     override fun consultarPorCategoria(categoriasId: Long): List<Produtos> =

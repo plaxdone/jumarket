@@ -5,6 +5,7 @@ import br.com.jumarket.sistema.autoatendimento.dto.DtoSalvarCategoria
 import br.com.jumarket.sistema.autoatendimento.dto.DtoVerCategoria
 import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosCategorias
+import jakarta.validation.Valid
 import org.apache.coyote.Response
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
@@ -27,7 +28,7 @@ class controladoraCategoria(
 ) {
 
     @PostMapping
-    fun salvarCategoria(@RequestBody dtoSalvarCategoria: DtoSalvarCategoria): ResponseEntity<String> {
+    fun salvarCategoria(@RequestBody @Valid dtoSalvarCategoria: DtoSalvarCategoria): ResponseEntity<String> {
         val categoriaSalva = this.servicosCategorias.salvarCategoria(dtoSalvarCategoria.paraEntidade())
         return ResponseEntity.status(HttpStatus.CREATED).body("Categoria '${categoriaSalva.nomeCategoria}' salva!")
     }
@@ -52,7 +53,7 @@ class controladoraCategoria(
 
     @PatchMapping
     fun atualizarCategoria(
-        @RequestParam(value = "categoriasId") id: Long, @RequestBody dtoAtualizarCategoria: DtoAtualizarCategoria
+        @RequestParam(value = "categoriasId") id: Long, @RequestBody @Valid dtoAtualizarCategoria: DtoAtualizarCategoria
     ): ResponseEntity<DtoVerCategoria> {
         val categorias: Categorias = this.servicosCategorias.consultarCategoria(id)
         val categoriaParaAtualizar: Categorias = dtoAtualizarCategoria.paraEntidade(categorias)

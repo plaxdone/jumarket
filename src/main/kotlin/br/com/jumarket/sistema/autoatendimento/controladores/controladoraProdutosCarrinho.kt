@@ -7,6 +7,7 @@ import br.com.jumarket.sistema.autoatendimento.dto.DtoVerListaProdutosCarrinho
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
 import br.com.jumarket.sistema.autoatendimento.entidade.ProdutosCarrinho
 import br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosProdutosCarrinho
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,7 +19,7 @@ class controladoraProdutosCarrinho(
     private val servicosProdutosCarrinho: ServicosProdutosCarrinho
 ) {
     @PostMapping
-    fun salvarProdutoCarrinho(@RequestBody dtoSalvarProdutosCarrinho: DtoSalvarProdutosCarrinho): ResponseEntity<String> {
+    fun salvarProdutoCarrinho(@RequestBody @Valid dtoSalvarProdutosCarrinho: DtoSalvarProdutosCarrinho): ResponseEntity<String> {
         val produtoCarrinhoSalvo = this.servicosProdutosCarrinho.salvarProdutosCarrinho(dtoSalvarProdutosCarrinho.paraEntidade())
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto ${produtoCarrinhoSalvo.produtoNome} inserido no carrinho!")
     }

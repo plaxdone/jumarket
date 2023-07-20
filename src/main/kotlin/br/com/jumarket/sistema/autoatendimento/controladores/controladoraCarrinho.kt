@@ -4,6 +4,7 @@ import br.com.jumarket.sistema.autoatendimento.dto.*
 import br.com.jumarket.sistema.autoatendimento.entidade.Carrinho
 import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosCarrinho
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,15 +16,15 @@ class controladoraCarrinho(
 ) {
 
     @PostMapping
-    fun salvarCarrinho(@RequestBody dtoSalvarCarrinho: DtoSalvarCarrinho): String {
+    fun salvarCarrinho(@RequestBody @Valid dtoSalvarCarrinho: DtoSalvarCarrinho): ResponseEntity<String> {
         val carrinhoSalvo: Carrinho = this.servicosCarrinho.salvarCarrinho(dtoSalvarCarrinho.paraEntidade())
-        return "Carrinho  salvo!"
+        return ResponseEntity.status(HttpStatus.CREATED).body("Carrinho  salvo!")
     }
 
     @GetMapping("/{id}")
-    fun consultarCarrinho(@PathVariable id: Long): DtoVerCarrinho {
+    fun consultarCarrinho(@PathVariable id: Long): ResponseEntity<DtoVerCarrinho> {
         val carrinho :Carrinho = this.servicosCarrinho.consultarCarrinho(id)
-        return DtoVerCarrinho(carrinho)
+        return ResponseEntity.status(HttpStatus.OK).body(DtoVerCarrinho(carrinho))
     }
 
     @DeleteMapping("/{id}")
@@ -31,7 +32,7 @@ class controladoraCarrinho(
 
     @PatchMapping
     fun atualizarCarrinho(
-        @RequestParam(value = "carrinhoId") id: Long, @RequestBody dtoAtualizarCarrinho: DtoAtualizarCarrinho
+        @RequestParam(value = "carrinhoId") id: Long, @RequestBody @Valid dtoAtualizarCarrinho: DtoAtualizarCarrinho
     ): ResponseEntity<DtoVerCarrinho> {
         val carrinho: Carrinho = this.servicosCarrinho.consultarCarrinho(id)
         val carrinhoParaAtualizar: Carrinho = dtoAtualizarCarrinho.paraEntidade(carrinho)
