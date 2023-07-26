@@ -5,11 +5,13 @@ import br.com.jumarket.sistema.autoatendimento.entidade.Carrinho
 import br.com.jumarket.sistema.autoatendimento.entidade.Categorias
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
 import br.com.jumarket.sistema.autoatendimento.entidade.ProdutosCarrinho
+import io.swagger.v3.oas.annotations.Hidden
 import jakarta.persistence.ManyToOne
 import jakarta.validation.constraints.NotEmpty
 import org.jetbrains.annotations.NotNull
 import java.math.BigDecimal
 
+@Hidden
 data class DtoSalvarProdutosCarrinho(
     @field:NotEmpty(message = "Digite um nome") val produtoNome: String,
     @field:NotNull() val produtoPreco: BigDecimal,

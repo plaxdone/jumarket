@@ -1,6 +1,7 @@
 package br.com.jumarket.sistema.autoatendimento.dto
 
 import br.com.jumarket.sistema.autoatendimento.entidade.Produtos
+import io.swagger.v3.oas.annotations.Hidden
 import java.math.BigDecimal
 
 data class DtoVerProduto(
