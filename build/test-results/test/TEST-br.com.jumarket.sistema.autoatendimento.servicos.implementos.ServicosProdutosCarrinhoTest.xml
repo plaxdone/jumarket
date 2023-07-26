@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosProdutosCarrinhoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-07-26T14:02:26" hostname="DESKTOP-HSG9BHO" time="0.321">
+  <properties/>
+  <testcase name="apagarProdutoCarrinho()" classname="br.com.jumarket.sistema.autoatendimento.servicos.implementos.ServicosProdutosCarrinhoTest" time="0.321"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

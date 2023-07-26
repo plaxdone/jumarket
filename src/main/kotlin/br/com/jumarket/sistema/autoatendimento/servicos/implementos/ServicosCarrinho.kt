@@ -17,5 +17,8 @@ class ServicosCarrinho(
         throw ExcecaoNegocio("Carrinho $id não encontrado")
     }
 
-    override fun apagarCarrinho(id: Long) = this.repositorioCarrinho.deleteById(id)
+    override fun apagarCarrinho(id: Long){
+        val carrinho: Carrinho = this.consultarCarrinho(id)
+        this.repositorioCarrinho.delete(carrinho)
+    }
 }

@@ -18,5 +18,8 @@ class ServicosCategorias(
 
     override fun consultarTodasCategorias(): List<Categorias> = this.repositorioCategoria.consultarTodasCategorias()
 
-    override fun apagarCategoria(id: Long) = this.repositorioCategoria.deleteById(id)
+    override fun apagarCategoria(id: Long) {
+        val categorias: Categorias = this.consultarCategoria(id)
+        this.repositorioCategoria.delete(categorias)
+    }
 }

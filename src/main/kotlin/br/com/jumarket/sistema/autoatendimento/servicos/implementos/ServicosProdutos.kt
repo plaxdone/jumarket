@@ -26,5 +26,8 @@ class ServicosProdutos(
 
     override fun consultarTodosProdutos(): List<Produtos> = this.repositorioProdutos.consultarTodosProdutos()
 
-    override fun apagarProduto(id: Long) = this.repositorioProdutos.deleteById(id)
+    override fun apagarProduto(id: Long) {
+        val produtos: Produtos = this.consultarProduto(id)
+        this.repositorioProdutos.delete(produtos)
+    }
 }
