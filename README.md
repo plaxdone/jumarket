@@ -11,7 +11,7 @@ Sistema desenvolvido com as tecnologias:
 
 ### Diagrama Banco de Dados
 
-// imagem
+![](https://raw.githubusercontent.com/plaxdone/jumarket/main/DB.png)
 
 ### Usos
 
